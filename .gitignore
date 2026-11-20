@@ -1,0 +1,4 @@
+; SAFETY VALVE: this repo was accidentally initialized at $HOME.
+; This ignore prevents any home-root file from ever being swept in by
+; "git add -A" until the repo is properly relocated (see session notes).
+/*
