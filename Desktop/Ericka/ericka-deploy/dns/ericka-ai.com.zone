@@ -1,0 +1,41 @@
+; ericka-ai.com zone — source of truth
+; Hosted at: Vercel DNS (team valentin-dobrevs-projects)
+; Verified drift-free against live DNS: 2026-11-20
+; Do NOT re-add Vercel-managed ALIAS records (root/wildcard) — they shadow
+; the Hetzner A records and caused the Oct 2026 apex 404 incident.
+
+$ORIGIN ericka-ai.com.
+$TTL 60
+
+; --- Hetzner (crm, 188.245.192.204) ---
+@                 60    IN  A      188.245.192.204
+www               60    IN  A      188.245.192.204
+plumbers          60    IN  A      188.245.192.204
+app               60    IN  A      188.245.192.204
+n8n               60    IN  A      188.245.192.204
+
+; --- Zoho Mail (val@ericka-ai.com) ---
+@                 3600  IN  MX     10 mx.zoho.com.
+@                 3600  IN  MX     20 mx2.zoho.com.
+@                 3600  IN  MX     50 mx3.zoho.com.
+@                 60    IN  TXT    "v=spf1 include:zohomail.com ~all"
+zmail._domainkey  60    IN  TXT    "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuG/GGDAGQ+ufEI/BYA1MQwGpfyqpMMytlP4APdb1pREt29S4okZptn+41wT0tbSvOpycJWxIa0WK2Z6Oa7ZsXPn/X7Xbny/zKlH+UsXQRamRCE+ulgGItUjFHsO1mWUSMK6hJzMWGD7dRA/AobtxWyfh4XzXgfm3A3mya7YyS6wIDAQAB"
+_dmarc            60    IN  TXT    "v=DMARC1; p=none; rua=mailto:val@ericka-ai.com"
+
+; --- Mailgun (mg.ericka-ai.com, GHL-era sending domain) ---
+; TODO: DELETE this block once Mailgun is confirmed dead (GHL cancelled, no
+; sender uses it). Stack search 2026-11-20: zero references in CRM/deploy code.
+mg                60    IN  MX     10 mxa.mailgun.org.
+mg                60    IN  MX     10 mxb.mailgun.org.
+mg                60    IN  TXT    "v=spf1 include:spf.leadconnectorhq.com include:mailgun.org ~all"
+pic._domainkey.mg 60    IN  TXT    "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDFeGgG5dhgL8SXjOHHzS/QtOiTi5pPYgitDDRfAdI0YDZp0564Y8LAJcsS223sANOTn/Tm2ZJtO/NRNg5DnxNawJ1aT8l/Ea2yx6YkdQlZvOD2UBGCR0QTS5Y8VGrNW9GhDdUE4SOpltN6muuNUcxARH7wvx4GeKUk0r8vj8a31wIDAQAB"
+_dmarc.mg         60    IN  TXT    "v=DMARC1;p=none;"
+email.mg          60    IN  CNAME  mailgun.org.
+
+; --- CAA (letsencrypt.org is what Caddy uses) ---
+@                 60    IN  CAA    0 issue "letsencrypt.org"
+@                 60    IN  CAA    0 issue "pki.goog"
+@                 60    IN  CAA    0 issue "sectigo.com"
+
+; NOT copied on purpose: the two Vercel-managed ALIAS records
+; (root -> vercel-dns-017, wildcard * -> vercel-dns-016). They point at Vercel.
