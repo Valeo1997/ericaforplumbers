@@ -22,15 +22,10 @@ n8n               60    IN  A      188.245.192.204
 zmail._domainkey  60    IN  TXT    "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuG/GGDAGQ+ufEI/BYA1MQwGpfyqpMMytlP4APdb1pREt29S4okZptn+41wT0tbSvOpycJWxIa0WK2Z6Oa7ZsXPn/X7Xbny/zKlH+UsXQRamRCE+ulgGItUjFHsO1mWUSMK6hJzMWGD7dRA/AobtxWyfh4XzXgfm3A3mya7YyS6wIDAQAB"
 _dmarc            60    IN  TXT    "v=DMARC1; p=none; rua=mailto:val@ericka-ai.com"
 
-; --- Mailgun (mg.ericka-ai.com, GHL-era sending domain) ---
-; TODO: DELETE this block once Mailgun is confirmed dead (GHL cancelled, no
-; sender uses it). Stack search 2026-11-20: zero references in CRM/deploy code.
-mg                60    IN  MX     10 mxa.mailgun.org.
-mg                60    IN  MX     10 mxb.mailgun.org.
-mg                60    IN  TXT    "v=spf1 include:spf.leadconnectorhq.com include:mailgun.org ~all"
-pic._domainkey.mg 60    IN  TXT    "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDFeGgG5dhgL8SXjOHHzS/QtOiTi5pPYgitDDRfAdI0YDZp0564Y8LAJcsS223sANOTn/Tm2ZJtO/NRNg5DnxNawJ1aT8l/Ea2yx6YkdQlZvOD2UBGCR0QTS5Y8VGrNW9GhDdUE4SOpltN6muuNUcxARH7wvx4GeKUk0r8vj8a31wIDAQAB"
-_dmarc.mg         60    IN  TXT    "v=DMARC1;p=none;"
-email.mg          60    IN  CNAME  mailgun.org.
+; --- Mailgun block REMOVED 2026-11-20 ---
+; GHL-era sending domain was deleted: no references in CRM/n8n, GHL replaced,
+; Mailgun account inaccessible (paywalled = inactive). If email sending is
+; ever needed, use Resend (blocker #8) and merge its SPF into the apex record.
 
 ; --- CAA (letsencrypt.org is what Caddy uses) ---
 @                 60    IN  CAA    0 issue "letsencrypt.org"
