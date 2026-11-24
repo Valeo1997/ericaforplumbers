@@ -18,10 +18,10 @@
 {"@context":"https://schema.org","@graph":[
 {"@type":"Organization","@id":"https://ericaforplumbers.com/#org","name":"Erica for Plumbers","url":"https://ericaforplumbers.com/","description":"24/7 answering, dispatching and job-booking service built exclusively for plumbing contractors.","areaServed":{"@type":"Country","name":"United States"}},
 {"@type":"WebSite","@id":"https://ericaforplumbers.com/#website","url":"https://ericaforplumbers.com/","name":"Erica for Plumbers","publisher":{"@id":"https://ericaforplumbers.com/#org"},"inLanguage":"en-US"},
-{"@type":"Service","@id":"https://ericaforplumbers.com/#service","name":"Plumbing Answering and Dispatching Service","alternateName":["Plumbing answering service","Plumbing dispatch service","24/7 plumber answering service"],"serviceType":"Plumbing answering and dispatching service","category":"Answering Service","provider":{"@id":"https://ericaforplumbers.com/#org"},"areaServed":{"@type":"Country","name":"United States"},"audience":{"@type":"BusinessAudience","name":"Plumbing contractors","audienceType":"Plumbing companies, plumbing contractors, one-truck plumbing shops"},"description":"An automated answering and dispatch service sold exclusively to plumbing contractors: Erica answers every call 24/7, triages plumbing emergencies, books jobs into your schedule, and follows up on open estimates.","hasOfferCatalog":{"@type":"OfferCatalog","name":"What Erica handles for plumbing companies","itemListElement":[
- {"@type":"Offer","itemOffered":{"@type":"Service","name":"Emergency plumbing call answering","description":"Burst pipes, sewer backups and no hot water at 2am: Erica answers, triages severity and alerts the on-call plumber."}},
+{"@type":"Service","@id":"https://ericaforplumbers.com/#service","name":"Plumbing Answering and Dispatching Service","alternateName":["Plumbing answering service","Plumbing dispatch service","24/7 plumber answering service"],"serviceType":"Plumbing answering and dispatching service","category":"Answering Service","provider":{"@id":"https://ericaforplumbers.com/#org"},"areaServed":{"@type":"Country","name":"United States"},"audience":{"@type":"BusinessAudience","name":"Plumbing contractors","audienceType":"Plumbing companies, plumbing contractors, one-truck plumbing shops"},"description":"An automated answering and dispatch service sold exclusively to plumbing contractors: Erica answers every call 24/7, triages plumbing emergencies and books jobs into your schedule.","hasOfferCatalog":{"@type":"OfferCatalog","name":"What Erica handles for plumbing companies","itemListElement":[
+ {"@type":"Offer","itemOffered":{"@type":"Service","name":"Emergency plumbing call answering","description":"Burst pipes, sewer backups and no hot water at 2am: Erica answers, triages severity and books the earliest window, flagged as an emergency."}},
  {"@type":"Offer","itemOffered":{"@type":"Service","name":"Plumbing job booking and dispatching","description":"Water heater swaps, drain cleaning, repipes and inspections booked straight into your schedule."}},
- {"@type":"Offer","itemOffered":{"@type":"Service","name":"Estimate follow-up and customer texts","description":"Chases unanswered plumbing estimates, sends on-our-way texts and confirms appointments."}}]},
+ {"@type":"Offer","itemOffered":{"@type":"Service","name":"Appointment confirmation texts","description":"Texts the customer a confirmation when a job is booked."}}]},
 "offers":{"@type":"Offer","availability":"https://schema.org/InStock","priceSpecification":{"@type":"PriceSpecification","description":"Free fifteen-minute demo. Monthly service, no contracts."}}},
 {"@type":"SoftwareApplication","@id":"https://ericaforplumbers.com/#app","name":"Erica for Plumbers","operatingSystem":"All","applicationCategory":"BusinessApplication","applicationSubCategory":"AI voice receptionist and automated dispatcher","description":"24/7 AI voice receptionist and automated dispatcher custom-built for plumbing and drain cleaning companies.","publisher":{"@id":"https://ericaforplumbers.com/#org"},"audience":{"@type":"BusinessAudience","name":"Plumbing and drain cleaning companies"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Free fifteen-minute demo, then monthly service with no contracts."}},
 {"@type":"WebPage","@id":"https://ericaforplumbers.com/contact.html","url":"https://ericaforplumbers.com/contact.html","name":"Book a Demo of the Plumbing Answering Service","description":"Free fifteen-minute demo of Erica handling a real plumbing call.","isPartOf":{"@id":"https://ericaforplumbers.com/#website"},"about":{"@id":"https://ericaforplumbers.com/#service"}}
@@ -91,7 +91,13 @@ body { margin: 0; text-wrap: pretty; }
               <label for="lead-details">Anything else? (optional)</label>
               <textarea id="lead-details" name="service_area_details" class="input" rows="3" placeholder="Service area, crew size, call volume details..."></textarea>
             </div>
+            <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label for="lead-website">Website</label><input id="lead-website" name="website" type="text" tabIndex="-1" autoComplete="off"></div>
+            <label style="display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:13px;line-height:1.5;color:color-mix(in srgb, var(--color-text) 75%, transparent)">
+              <input type="checkbox" name="sms_consent" value="yes" style="margin-top:3px">
+              <span>Text me about my demo. By checking this box you agree to receive text messages from Ericka AI about your demo request. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase.</span>
+            </label>
             <button type="submit" class="btn amber" style="margin-top:20px;font-size:16px;padding:13px 26px" disabled="{{ sending }}">{{ submitLabel }}</button>
+            <p style="font-size:12px;line-height:1.5;margin:12px 0 0;color:color-mix(in srgb, var(--color-text) 60%, transparent)">By submitting, you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</p>
             <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
               <p role="alert" style="font-size:14px;line-height:1.55;margin:14px 0 0;color:#a8531a">{{ error }}</p>
             </sc-if>
@@ -120,17 +126,19 @@ body { margin: 0; text-wrap: pretty; }
     <a href="how-it-works.html" style="text-decoration:none;color:inherit">How it works</a>
     <a href="contact.html" style="text-decoration:none;color:inherit">Contact</a>
     <a href="fit-check.html" style="text-decoration:none;color:inherit">Fit check</a>
+    <a href="privacy.html" style="text-decoration:none;color:inherit">Privacy</a>
+    <a href="terms.html" style="text-decoration:none;color:inherit">Terms</a>
   </div>
   <span>&copy; {{ year }}</span>
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;ctaPhone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;(555) 019-2884&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;formEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/lead&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lead capture&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;ctaPhone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;(888) 296-3752&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;formEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://n8n.ericka-ai.com/webhook/website-lead&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Lead capture&quot;}}">
 class Component extends DCLogic {
   state = { submitted: false, sending: false, error: '' };
 
   async send(payload) {
-    const endpoint = this.props.formEndpoint ?? '/api/lead';
+    const endpoint = this.props.formEndpoint ?? 'https://n8n.ericka-ai.com/webhook/website-lead';
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -150,6 +158,8 @@ class Component extends DCLogic {
       email: (fd.get('email') || '').trim(),
       cost_pain_point: fd.get('cost_pain_point') || '',
       service_area_details: (fd.get('service_area_details') || '').trim(),
+      sms_consent: fd.get('sms_consent') === 'yes',
+      website: (fd.get('website') || '').trim(),
       source_page: typeof location !== 'undefined' ? location.pathname : '',
       submitted_at: new Date().toISOString()
     };
@@ -158,14 +168,14 @@ class Component extends DCLogic {
       .then(() => this.setState({ submitted: true, sending: false }))
       .catch(() => this.setState({
         sending: false,
-        error: "That didn't go through. Call or text " + (this.props.ctaPhone ?? '(555) 019-2884') + " and we'll book it by hand."
+        error: "That didn't go through. Call or text " + (this.props.ctaPhone ?? '(888) 296-3752') + " and we'll book it by hand."
       }));
   }
 
   renderVals() {
     return {
       year: new Date().getFullYear(),
-      ctaPhone: this.props.ctaPhone ?? '(555) 019-2884',
+      ctaPhone: this.props.ctaPhone ?? '(888) 296-3752',
       submitted: this.state.submitted,
       notSubmitted: !this.state.submitted,
       sending: this.state.sending,
